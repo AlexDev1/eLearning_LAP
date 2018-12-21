@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load staticfiles%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/assignment.css' %}">
+{% include 'breadcrumb.html' %}
+
+<!-- Quiz section -->
+<div class="container course-professor-panel">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Add New Assigment</h2>
+            <form action="" method="POST" name="quiz-form">
+                {% csrf_token %}
+                {{ add_assignment_form|crispy }}
+                <input type="submit" value="Add" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div> 
+
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+                {% if queryset_assignment %}
+                <table class="table table-bordered table-hover generic-table">
+                    <thead>
+                        <tr>
+                            <th>Assignment name</th>
+                            <th>Owner</th>
+                            <th>Chapter</th>
+                            <th>Question</th>
+                            <th>Correct Answer</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    {% for instance in queryset_assignment %}
+                    <tr>
+                        <td class="col-md-2"><a href="{{ instance.get_absolute_url }}">{{ instance.name }}</a></td>
+                        <td class="col-md-2">{{ instance.owner.username }}</td>
+                        <td class="col-md-2">{{ instance.chapter.name}}</td>
+                        <td class="col-md-2">{{ instance.question|truncatewords:6}}</td>
+                        <td class="col-md-2">{{ instance.correct_answer|truncatewords:6}}</td>
+                        <td class="col-md-2">
+                            <a href="{% url 'edit_assignment' instance.id %}">
+                                <input type="submit" value="Edit" class="btn btn-primary btn-sm">
+                            </a>
+                            <a href="{% url 'delete_assignment' instance.id %}">
+                                <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

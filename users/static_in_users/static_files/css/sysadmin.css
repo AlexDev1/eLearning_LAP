@@ -1,0 +1,87 @@
+label, h2, th {
+    color: #637f83;
+}
+
+
+
+.admin-panel-content {
+    margin-top: 25px;
+}
+
+a {
+    color: #e4551d;
+}
+
+.btn-primary {
+    background-color: #637F83;
+}
+
+.admin-search-form {
+    margin-top: 27px;
+    margin-bottom: 10px;
+}
+
+.generic-table {
+    margin-top: 5px;
+    /* border&shadow */
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 8px 8px 8px #637F83;
+    -webkit-box-shadow: 8px 8px 8px #637F83;
+    box-shadow: 8px 8px 8px #637F83;
+}
+
+.generic-table th {
+    background-color: #637F83;
+    color: white;
+}
+
+.update-form {
+    line-height: 1.6em;
+    margin-top: 50px;
+    margin-left: 100px;
+}
+
+.update-form label {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 20px 0 0 0;
+}
+
+.update-form input[type="text"], .update-form input[type="email"], .update-form input[type="password"]{
+    max-width: 350px;
+    margin: 10px 0;
+}
+
+.update-form input[type="submit"]{
+    background: #e4551d;
+    text-align: center;
+    color: #fff;
+    margin-top: 20px;
+    width: 150px;
+    margin-left: 100px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#hint_id_username{
+    font-style: italic;
+    font-size: 14px;
+    color: tomato;
+}
+
+
+#information-list li{
+    font-size: 12px;
+}
+
+#information-list li strong{
+    font-size: 14px;
+}
+
+.dashboard-form{
+    margin-top: 70px;
+    padding-right: 15px;
+    border-right: 1px solid lightgray;
+}

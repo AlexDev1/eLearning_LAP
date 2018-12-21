@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load staticfiles%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+{% include 'breadcrumb.html' %}
+
+<div class="container">
+    <h2>Total question: {{ total_unanswer_questions }}</h2>
+
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100"
+            style="width:{{progress}}%;">
+            <span class="sr-only">{{ progress}} Complete</span>
+        </div>
+    </div>
+
+    <div class="panel panel-danger">
+        <div class="panel-heading title-text">
+            <h2 class="panel-title">{{ title }}</h2>
+            <p>{{ question.text }}</p>
+        </div>
+        <div class="panel-body">
+            <form action="" method="POST">
+                <form action="" method="POST">
+                    {{ form_question | crispy}}
+                    {% csrf_token %}
+                    <input type="submit" value="Next →" class="btn btn-primary">
+
+                </form>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

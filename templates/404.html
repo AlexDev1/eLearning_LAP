@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+2
+3 {% block title %}
+4 Page Not Found
+5 {% endblock %}
+6
+7 {% block content %}
+8 <div class="row">
+9 <div class="offset-by-two eight columns">
+10 <h1>Page Not Found</h1>
+11 <p>The path {{ request.path }} is not a
+12 webpage on this site!</p>
+13 </div>
+14 </div>
+15 {% endblock %}

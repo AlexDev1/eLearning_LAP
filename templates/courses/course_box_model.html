@@ -1,0 +1,30 @@
+{% load staticfiles %}
+{% block cbox_model %}
+<div class="container content">
+    <link rel="stylesheet" href="{% static 'css/course.css' %}">
+    <div class="row">
+        {% if queryset %}
+        {% for instance in queryset %}
+        <div class="col-md-4 course-box-model">
+            <a href="{% url 'course_homepage' instance.name %}">
+                <div class="inner-wrap">
+                    <div class="inner-top">
+                        {{ instance.name }}
+                    </div>
+                    <div class="inner-middle">
+                    </div>
+                    <div class="inner-bottom">
+                        <span class="author">Author: {{ instance.user }}</span>
+                        <span class="course-type">Self-Paced</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus hic vel quaerat quae maxime placeat soluta architecto?
+Quis dolore debitis placeat iste fuga, unde at quibusdam, eligendi minus vero dicta?

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/professor.css' %}">
+
+    {% include 'breadcrumb.html' %}
+
+    <div class="container professor-panel-content">
+        <div class="row">
+            <div class="col-md-4">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ add_course_form|crispy }}
+                    <input type="submit" value="Add course" class="btn btn-primary">
+                </form>
+            </div>
+
+            <div class="col-md-8">
+                {% if queryset_course %}
+                    <table class="table table-condensed table-hover generic-table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Course name</th>
+                                <th>Date created</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        {% for instance in queryset_course %}
+                            <tr>
+                                <td><a href="{% url 'teacher_course' instance.name %}">{{ instance.name}}</a></td>
+                                <td>{{instance.created_date}}</td>
+                                <td>
+                                    <a href="{% url 'edit_course' instance.name %}">
+                                        <input type="submit" value="Edit course" class="btn btn-primary btn-sm">
+                                    </a>
+                                    <a href="{% url 'delete_course' instance.name %}">
+                                        <input type="submit" value="Delete course" class="btn btn-primary btn-sm">
+                                    </a>
+                                    <a href="{% url 'list_students'  instance.name %}">
+                                        <input type="submit" value="Edit students" class="btn btn-primary btn-sm">
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

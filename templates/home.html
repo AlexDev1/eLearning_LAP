@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!----start-banner---->
+<div class="banner">
+  <div class="ptext">
+    <span class="border">
+      Learning Management Website
+    </span>
+    <a href="{% url 'courses'%}"><span class="glyphicon glyphicon-education"></span> Read more</a>
+  </div>
+</div>
+<!----start-content---->
+<div class="featured_content" id="feature">
+  <div class="container">
+    <div class="row text-center">
+
+      <div class="col-md-3 feature_grid1">
+            <i class="icon1"></i>
+            <h3 class="m_1"><a href="#">Video Lectures</a></h3>
+            <p >Learn anything by watching educational videos!</p>
+      </div>
+
+      <div class="col-md-3 feature_grid1 ">
+            <i class="icon2"></i>
+            <h3 class="m_1"><a href="#">Research</a></h3>
+            <p >Make experiments with lectures and discuss it on forums!</p>
+      </div>
+
+      <div class="col-md-3 feature_grid1 ">
+            <i class="icon3"></i>
+            <h3 class="m_1"><a href="#">Solutions</a></h3>
+            <p >Improve this website by sharing better solutions!</p>
+      </div>
+
+      <div class="col-md-3 feature_grid1 ">
+          
+            <i class="icon4"></i>
+            <h3 class="m_1"><a href="#">Activism</a></h3> 
+            <p >Get involved with our website by sharing this website!</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div>
+{% endblock %}

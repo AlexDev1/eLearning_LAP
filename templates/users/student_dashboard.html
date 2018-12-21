@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load staticfiles %}
+
+{% block content %}
+    <!-- Contact core css -->
+    <link rel="stylesheet" href="{% static 'css/student_profile.css' %}">
+    {% include 'breadcrumb.html' %}
+
+    <div class="container content">
+        <link rel="stylesheet" href="{% static 'css/course.css' %}">
+        <div class="row">
+            {% if queryset %}
+            <h3> Your own course: </h3>
+
+            {% for instance in queryset %}
+                <div class="col-md-4 course-box-model">
+                    <a href="{% url 'course_homepage' instance.name %}">
+                        <div class="inner-wrap">
+                            <div class="inner-top">
+                                {{ instance.name }}
+                            </div>
+                            <div class="inner-middle"></div>
+                            <div class="inner-bottom">
+                                <span class="author">Author: {{ instance.user }}</span>
+                                <span class="course-type">Self-Paced</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            {% else %}
+                <h4> No courses yet.</h4>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

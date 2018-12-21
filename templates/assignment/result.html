@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load staticfiles%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/assignment.css' %}">
+{% include 'breadcrumb.html' %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h1> "{{ assignment.name}}" Result By "{{ your_taken_assignment.student.username}}"</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Question</h4>
+                        </div>
+                        <div class="panel-body">
+                            <pre><code>{{assignment.question }}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Correct Answer</h4>
+                        </div>
+                        <div class="panel-body">
+                            <pre><code>{{assignment.correct_answer  }}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">{{ your_taken_assignment.student.username}}'s Answer</h4>
+                        </div>
+                        <div class="panel-body">
+                            <pre><code>{{ your_taken_assignment.assignment.answer  }}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Your Score</h4>
+                        </div>
+                        <div class="panel-body">
+                            {% if your_taken_assignment.score %}
+                            <p>{{your_taken_assignment.score }}</p>
+                            {% else %}
+                            <p>Please keep waiting for the teacher give you a score of this assignment.....</p>
+                            {% endif %}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Ranking</h4>
+                </div>
+                <div class="panel-body">
+                    {% if taken_list %}
+                    <table class="table table-bordered  table-hover generic-table">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        {% for instance in taken_list %}
+                        <tr>
+                            <td class="col-md-4">{{ instance.student }}</td>
+                            <td class="col-md-4">{{ instance.score}}</td>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

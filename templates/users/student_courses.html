@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+<link rel="stylesheet" href="{% static 'css/course.css' %}">
+
+{% include 'breadcrumb.html' %}
+
+<div class="container student-course">
+    <div class="row">
+        <div class="col-md-2">
+            {% if chapter_list %}
+            <ul class="sidebar-nav" id="sidebar">
+                <li class="title">Chapters</li>
+                <li>
+                    {% for instance in chapter_list %}
+                    <a class="a-target" href="{% url 'student_course' course_name instance.slug %}">
+                        <span class="sub_icon glyphicon glyphicon-link"></span> {{ instance.name }}
+                    </a>
+                    {% endfor %}
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading chapter-name"><span class="glyphicon glyphicon-book"> {{ chapter_name}}</span></div>
+                <div class="panel-body">
+                    <p class="ptitle">
+                        <span class="glyphicon glyphicon-heart"></span> The content is below here
+                        <span class="glyphicon glyphicon-heart"></span>
+                    </p>
+                </div>
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-education"></span> Content</h3>
+                    </div>
+                    <div class="panel-body">
+                        {% if text %}
+                        {% for instance in text%}
+                        <p class="ptext"> {{ instance.lesson | safe}}</p>
+                        <br>
+                        {% endfor %}
+                        {% else %}
+                        <p>No content yet...</p>
+                        {% endif%}
+                    </div>
+                </div>
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-hd-video"></span> Video Lecture</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            {% if videos %}
+                            {% for instance in videos %}
+                            {% if 'youtube.com' in instance.link %}
+                            <li class="list-group-item video">
+                                <iframe width="480" height="360" src="{{instance.link}}" frameborder="0"
+                                    allowfullscreen></iframe>
+                            </li>
+                            <br>
+                            {% else%}
+                            <p>{{ instance.link |safe}}</p>
+                            {% endif %}
+                            {% endfor %}
+                            {% else%}
+                            <p>No videos yet....</p>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+
+
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-save-file"></span> Other Resources</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            {% if files %}
+                            {% for instance in files %}
+                            <li class="list-group-item">
+                                <a href="{{ instance.file.url}}">
+                                    <span class="glyphicon glyphicon-file"></span>
+                                    {{ instance.file}}
+                                </a>
+                            </li>
+                            {% endfor %}
+                            {% else%}
+                            <p>No files yet...</p>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-hand-down"></span> Quiz for {{ chapter_name }}
+                    </h3>
+                </div>
+
+                <div class="panel-body">
+                    <ul class="list-group">
+                        {% if quizzes %}
+                        {% for instance in quizzes %}
+                        <li class="list-group-item">
+                            <a href="{% url 'take_quiz' slug instance.slug %}">
+                                <span class="glyphicon glyphicon-tasks"></span>
+                                {{ instance.name}}
+                            </a>
+                        </li>
+                        {% endfor %}
+                        {% else%}
+                        <p>No quiz yet...</p>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-hand-down"></span> Assignment for {{ chapter_name }}
+                    </h3>
+                </div>
+
+                <div class="panel-body">
+                    <h3 class="current-score"><span class="glyphicon glyphicon-hand-right"></span> 
+                        Current Average Quiz Score: <span class="score"> {{ current_quiz_score }} </span> 
+                    </h3>
+                    <ul class="list-group">
+                        {% if assignment and current_quiz_score >= 50.0 %}
+                            {% if not isTaken %}
+                            <li class="list-group-item"><a href="{% url 'take_assignment' assignment.id %}">
+                                    <span class="glyphicon glyphicon-tasks"></span>
+                                    {{ assignment.name}}
+                                </a>
+                            </li>
+                            {% else%}
+                            <li class="list-group-item"><a href="{% url 'assignment_result' assignment.id %}">Check the
+                                    result</a></li>
+                            {% endif %}                       
+                        {% else %}
+                        <p class="warning-message"> Your average quiz's score have to reach more than 50.0 to access the Assigments</p>
+                        <p class="warning-message">Not Assignment yet. Please waiting for teacher add a new assignment</p>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-arrow-down"></span> Other courses: </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="container-fluid">
+                        <div class="row flex-row flex-nowrap ">
+
+                            {% for instance in random_course %}
+                            <div class="col-md-3 course-box-model scoll-view">
+                                <a href="{% url 'course_homepage' instance.name %}">
+                                    <div class="inner-wrap">
+                                        <div class="inner-top">
+                                            {{ instance.name }}
+                                        </div>
+                                        <div class="inner-middle">
+                                        </div>
+                                        <div class="inner-bottom">
+                                            <span class="author"><strong>{{ instance.user }}</strong></span>
+                                            <span class="course-type"><strong>{{ instance.category.name}}</strong></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        /* make left-border same height as parent */
+        var rightColumn = $(".col-md-10");
+        var parentHeight = rightColumn.parent().height();
+        rightColumn.css('height', parentHeight);
+
+        /* Add active class on chapter change */
+        var pathname = window.location.pathname;
+        pathname = pathname.substring(0, pathname.length - 1);
+        $('.sidebar-nav > li a[href="' + pathname + '"]').addClass('active-sidebar');
+    });
+</script>
+{% endblock %}

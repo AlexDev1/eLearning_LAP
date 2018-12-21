@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    {% include 'head_css.html' %}
+
+    <link href="https://fonts.googleapis.com/css?family=Ranga" rel="stylesheet">
+
+</head>
+<body>
+    {% include 'javascript.html' %}
+    <!-- Wrap all content here -->
+    <div id='wrap'>
+        <!-- Begin page content -->
+        {% include 'navbar.html' %}
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div id="footer">
+        <div class="container">
+            eLearning Platform
+            @Copyright
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% include 'head_css.html' %}
+{% include 'javascript.html'%}
+
+{% block content %}
+{% include 'breadcrumb.html' %}
+<link rel="stylesheet" href="{% static 'css/sysadmin.css' %}">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="text-center">
+                <img src="https://www.notesmate.in/images/default-user.png" class="avatar img-circle img-thumbnail" alt="avatar"
+                    width="200px" height="200px">
+            </div>
+            <hr><br>
+
+
+            <ul class="list-group" id="information-list">
+                <li class="list-group-item text-muted title"><strong>Information</strong> <i class="fa fa-dashboard fa-1x"></i></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Username:</strong></span>
+                    {{ current_user.username}}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Email:</strong></span>
+                    {{ current_user.email }}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Role:</strong></span>
+                    {% if current_user.is_teacher %} Teacher {% elif current_user.is_site_admin %} Admin {% else %} Student {% endif%}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Joined:</strong></span>
+                    {{ current_user.date_joined}}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Last login:</strong></span>
+                    {{ current_user.last_login}}</li>
+            </ul>
+
+
+            <ul class="list-group">
+                <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+                <li><a data-toggle="tab" href="#messages">Menu 1</a></li>
+                <li><a data-toggle="tab" href="#settings">Menu 2</a></li>
+            </ul>
+            <br><br><br><br><br><br>
+
+            <form action="" method="POST" class="update-form">
+                {% csrf_token %}
+                {{ update_user_form|crispy }}
+                <input type="submit" value="Update" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

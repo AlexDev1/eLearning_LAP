@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<!-- COurse core css-->
+<link rel="stylesheet" href="{% static 'css/course.css' %}">
+<link rel="stylesheet" href="{% static 'css/sidebar.css'%}">
+<div class="container-fluid">
+    <div class="row">
+        {% include 'breadcrumb.html' %}
+        <div class="col-xs-12 col-md-6 col-md-offset-3 message">
+            {% if messages %}
+            {% for message in messages %}
+            <p {% if message.tags %} class="alert alert-warning" {% endif %}>{{ message}}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="clear-all"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div>
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-education"></span> Teachers</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <a href="{% url 'courses' %}" class="list-group-item all-item">
+                                        <span class="glyphicon glyphicon-user" aria-hidden="true">
+                                        </span> <strong>All </strong> </span>
+                                    </a>
+                                    {% for key,value in detail_teachers.items %}
+                                    <a href="{% url 'courses_by_teacher' value.name %}" class="list-group-item item-panel">
+                                        <span class="glyphicon glyphicon-user" aria-hidden="true">
+                                        </span> {{ value.name}} <span class="badge">{{ value.num}} </span>
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-list"></span> Categories</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <a href="{% url 'courses' %}" class="list-group-item all-item">
+                                        <span class="glyphicon glyphicon-education" aria-hidden="true">
+                                        </span> <strong>All </strong> </span>
+                                    </a>
+                                    {% for key, value in detail_categories.items %}
+                                    <a href="{% url 'courses_by_category' value.slug %}" class="list-group-item item-panel">
+                                        <span class="glyphicon glyphicon-education" aria-hidden="true">
+                                        </span> {{ value.name }} <span class="badge">{{ value.num}} </span>
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <h2><span class="glyphicon glyphicon-education"></span> 
+                        {% if not filter %}
+                        All of public courses for everyone:
+                        {% else %}
+                        Public course by {{ filter }}
+                        {% endif %}
+                    </h2>
+
+                    <div class="row">
+                        {% if courses %}
+                        {% for instance in courses %}
+                        <div class="col-md-5 course-box-model">
+                            <a href="{% url 'course_homepage' instance.name %}">
+                                <div class="inner-wrap">
+                                    <div class="inner-top">
+                                        {{ instance.name }}
+                                    </div>
+                                    <div class="inner-middle">
+                                    </div>
+                                    <div class="inner-bottom">
+                                        <span class="author"> <strong> {{ instance.user }}</strong></span>
+                                        <span class="course-type"><strong>{{ instance.category.name}}</strong></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <p> Currently, no course yet.</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination pagination-course">
+                        <span class="step-links">
+                            {% if courses.has_previous %}
+                                <a href="?page={{ courses.previous_page_number }}"> &larr; Previous</a>
+                            {% endif%}
+            
+                            <span class="current">
+                                Page {{ courses.number }} of {{ courses.paginator.num_pages }}: 
+                            </span>
+            
+                            {% if courses.has_next %}
+                                <a href="?page={{ courses.next_page_number }}">Next →</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="panel">
+            <div class="panel-body bg-panel">
+                <h4><span class="glyphicon glyphicon-sort-by-order"></span> Recently courses:</h4>
+                <div class="container">
+
+                    <div class="row flex-row flex-nowrap ">
+                        {% for instance in related_courses %}
+                        <div class="col-md-3 course-box-model scoll-view">
+                            <a href="{% url 'course_homepage' instance.name %}">
+                                <div class="inner-wrap">
+                                    <div class="inner-top">
+                                        {{ instance.name }}
+                                    </div>
+                                    <div class="inner-middle">
+                                        <p>{{ instance.created_date}}</p>
+                                    </div>
+                                    <div class="inner-bottom">
+                                        <span class="author"><strong>{{ instance.user }}</strong></span>
+                                        <span class="course-type"><strong>{{ instance.category.name}}</strong></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}

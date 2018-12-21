@@ -1,0 +1,103 @@
+{% load staticfiles %}
+
+<!-- Breadcrumb core css -->
+<link href="{% static 'css/breadcrumb.css' %}" rel="stylesheet"/>
+
+<div class="bread-h">
+  <div class="container">
+    <section class="title-section">
+      <h1 class="title-header">{{ title }} </h1>
+      <ul class="breadcrumb breadcrumb__t">
+
+        <li>
+          <a href="/">Home&nbsp</a>
+          {% if  path  != None %}
+            {% url 'forum' as forum_url %}
+            {% if request.get_full_path != forum_url %}
+              <span class="spacing-path">&nbsp/&nbsp&nbsp</span><a href="/{{ redirect_path }}">&nbsp{{ path }}&nbsp</a>
+            {% endif %}
+          {% endif %}
+        </li>
+
+        {% url 'student_course' course_name slug as student_course_url %}
+        {% if request.get_full_path ==  student_course_url %}
+          <li><a href="{% url 'courses' %}">Courses</a></li>
+        {% endif %}
+
+        {% url 'chapter' course_name slug as chapter_url %}
+        {% if request.get_full_path ==  chapter_url %}
+          <li><a href="{% url 'teacher_course' course_name %}">{{ course_name }}</a></li>
+        {% endif %}
+
+        {% url 'create_quiz' chapter_slug as create_quiz_url %}
+        {% if request.get_full_path ==  create_quiz_url %}
+          <li><a href="{% url 'chapter' course_name slug %}">{{ chapter_name }}</a></li>
+        {% endif %}
+
+        {% url 'take_quiz' chapter_slug quiz_slug as take_quiz_url %}
+        {% if request.get_full_path ==  take_quiz_url %}
+          <li><a href="{% url 'student_course' course_name chapter_slug %}">{{ chapter_name }}</a></li>
+        {% endif %}
+
+        {% url 'quiz' chapter_slug quiz_slug as quiz_url %}
+        {% if request.get_full_path == quiz_url %}
+          <li><a href="{% url 'create_quiz' chapter_slug %}">{{ title }}</a></li>
+        {% endif %}
+
+        {% url 'question' id as question_url %}
+        {% if request.get_full_path == question_url %}
+          <li><a href="{% url 'quiz' chapter_slug quiz_slug %}">{{ title }}</a></li>
+        {% endif %}
+
+        {% url 'edit_quiz' chapter_slug quiz_slug  as edit_quiz_url %}
+        {% if request.get_full_path ==  edit_quiz_url %}
+          <li><a href="{% url 'create_quiz' chapter_slug %}">{{ chapter_name }}</a></li>
+        {% endif %}
+
+        {% url 'edit_question' question_id  as edit_question_url %}
+        {% if request.get_full_path ==  edit_question_url %}
+          <li><a href="{% url 'quiz' chapter_slug quiz_slug %}">{{ quiz_name }}</a></li>
+        {% endif %}
+
+        {% url 'edit_answer' answer_id  as edit_answer_url %}
+        {% if request.get_full_path ==  edit_answer_url %}
+          <li><a href="{% url 'question' question_id %}">{{ question_text }}</a></li>
+        {% endif %}
+
+        {% url 'create_assignment' chapter.slug as create_assignment_url %}
+        {% if request.get_full_path ==  create_assignment_url %}
+          <li><a href="{% url 'chapter' chapter.course.name chapter.slug %}">{{ chapter.name }}</a></li>
+        {% endif %}
+
+        {% url 'assignment' assignment.id  as assignment_url %}
+        {% if request.get_full_path ==  assignment_url %}
+          <li><a href="{% url 'create_assignment' assignment.chapter.slug  %}">{{ assignment.name }}</a></li>
+        {% endif %}
+
+        {% url 'edit_assignment' assignment.id  as edit_assignment_url %}
+        {% if request.get_full_path ==  edit_assignment_url %}
+          <li><a href="{% url 'create_assignment' assignment.chapter.slug  %}">{{ assignment.name }}</a></li>
+        {% endif %}
+
+
+        {% url 'edit_txt' course_name slug text_id as edit_txt_url %}
+        {% if request.get_full_path ==  edit_txt_url %}
+          <li><a href="{% url 'chapter' course_name slug %}">{{ course_name }}</a></li>
+        {% endif %}
+
+        {% url 'edit_chapter' course_name chapter_id as chapter_url %}
+        {% if request.get_full_path ==  chapter_url %}
+          <li><a href="{% url 'teacher_course' course_name %}">{{ course_name }}</a></li>
+        {% endif %}
+
+        {% url 'edit_link' course_name slug yt_id as chapter_url %}
+        {% if request.get_full_path ==  chapter_url %}
+          <li><a href="{% url 'chapter' course_name slug %}">{{ course_name }}</a></li>
+        {% endif %}
+
+      
+        <li class="active">&nbsp{{ title }}</li>
+      </ul>
+    </section>
+  </div>
+</div>

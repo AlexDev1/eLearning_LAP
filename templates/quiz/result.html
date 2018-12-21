@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load staticfiles%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+
+<div class="container">
+    <h1>Result's {{ quiz.name }}</h1>
+    <br>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ student.username}}'s answer </h3>
+                </div>
+                <div class="panel-body">
+                    {% if taken_answer %}
+                    <table class="table table-bordered table-condensed table-hover generic-table">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>{{ student.username}}'s Answer</th>
+                            </tr>
+                        </thead>
+                        {% for instance in taken_answer %}
+                        <tr>
+                            <td class="col-md-3">{{ instance.answer.question.text }}</td>
+                            <td class="col-md-3">{{ instance.answer.text }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Correct answers</h3>
+                </div>
+
+                <div class="panel-body">
+                    {% if correct_answers %}
+                    <table class="table table-bordered table-condensed table-hover generic-table">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Correct Answer</th>
+                            </tr>
+                        </thead>
+                        {% for instance in correct_answers %}
+                        <tr>
+                            <td class="col-md-3">{{ instance.question }}</td>
+                            <td class="col-md-3">{{ instance.correct_answer}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        
+
+        <div class="col-md-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Participants in {{ quiz.name }}</h3>
+                </div>
+
+                <div class="panel-body">
+                    {% if queryset_taken_quizzes %}
+                    <table class="table table-bordered table-condensed table-hover generic-table">
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Score</th>
+                                <th>Start at</th>
+                            </tr>
+                        </thead>
+                        {% for instance in queryset_taken_quizzes %}
+                        <tr>
+                            <td class="col-md-3">{{ instance.student.username }}</td>
+                            <td class="col-md-2">{{ instance.score}}</td>
+                            <td class="col-md-3">{{ instance.created_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% endif %}
+                </div>
+                <div class="panel-footer">
+                    <a href="{% url 'student_course' course_name chapter_slug %}">
+                        <input type="submit" value="Back to {{ chapter_name }}" class="btn btn-primary btn-sm">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

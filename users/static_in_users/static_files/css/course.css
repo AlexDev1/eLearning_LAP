@@ -1,0 +1,219 @@
+h2 {
+    font-size: 20px;
+    color: tomato;
+    word-spacing: 3px;
+    text-transform: capitalize;
+}
+
+#add-quiz-button {
+    margin-left:  30px;
+}
+
+/*--course-box-model--*/
+.inner-wrap {
+    /* border&shadow */
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 8px 8px 8px #637F83;
+    -webkit-box-shadow: 8px 8px 8px #637F83;
+    box-shadow: 8px 8px 8px #637F83;
+    background-color: #637F83;
+    min-height: 170px;
+    min-width: 250px;
+}
+
+.inner-top {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #fff;
+    background: lightgreen;
+    text-align: center;
+    text-transform: capitalize;
+    font-weight: bolder;
+}
+
+.course-box-model {
+    margin: 0.5rem 2rem;
+    padding: 0.5rem 1rem;
+}
+
+.course-box-model a {
+    text-decoration: none;
+    color: white;
+}
+
+.inner-middle {
+    background: url(../img/course-box.jpg) no-repeat 0 0;
+    background-size: contain;
+    min-height: 100px;
+    text-align: center;
+}
+
+.inner-middle p {
+    padding: 20px;
+    color:teal;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.inner-bottom {
+    padding: 0 0.2em 0.4em 0.2em;
+    color: white;
+    font-size: 13px;
+}
+
+
+.inner-bottom strong{
+    color: lightgrey;
+}
+
+.course-type {
+    float: right;
+}
+.author {
+    margin-left: 1em;
+}
+
+/*--course--*/
+.course-professor-panel {
+    margin-top: 20px;
+}
+
+/*--courses->chapter--*/
+.row {
+    margin-bottom: 1em;
+}
+
+.chapter-text-input {
+    padding-left: 0;
+}
+
+#id_chapter_description {
+    resize: none;
+}
+
+.message {
+    text-align: center;
+}
+
+.generic-table {
+    /* border&shadow */
+    -moz-border-radius: 5px;
+    border-radius: 4px;
+    -moz-box-shadow: 8px 8px 8px #637F83;
+    -webkit-box-shadow: 8px 8px 8px #637F83;
+    box-shadow: 8px 8px 8px #637F83;
+}
+
+.generic-table td {
+    word-break: break-all;
+}
+
+.generic-table th {
+    background-color: #637F83;
+    color: white;
+}
+
+.generic-table th:nth-last-child(-n+2) {
+    text-align: center;
+}
+
+.generic-table td:last-child {
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #637F83;;
+}
+
+label {
+    color: #637F83;
+}
+
+textarea {
+    resize: none;
+}
+
+
+.clear-all{
+    clear: both;
+}
+
+.panel h4 {
+    text-transform: capitalize;
+    margin-left: 120px;
+    font-size: 25px;
+    word-spacing: 2px;
+    color: tomato;
+    min-height: 50px;
+    padding: 10px 0;
+    font-weight: 700;
+}
+
+
+.panel-heading{
+    background-color: tomato;
+}
+
+.panel-title{
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: #fff;
+}
+.bg-panel{
+    background-color: #f6f6f6;
+}
+.item-panel{
+    font-size: 13px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+a.all-item{
+    font-size: 14px;
+}
+
+.col-md-3 {
+    margin-top: 10px;
+}
+
+.col-md-9 h2{
+    margin-left: 30px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    margin-top: 6px;
+    font-weight: bold;
+    color: tomato;
+}
+
+.pagination-course{
+    margin-left: 40px;
+    font-size: 20px;}
+
+th {
+    text-align: center;
+}
+
+.warning-message {
+    text-transform: capitalize;
+    word-spacing: 2px;
+    color:#111;
+    font-size: 16px;
+}
+
+.current-score{
+    border-bottom: 1px solid brown;
+    border-top: 1px solid brown;
+    word-spacing: 3px;
+    letter-spacing: 1px;
+}
+.current-score .score {
+    font-size: 30px;
+    color: tomato;
+    font-weight: 600;
+    text-shadow: 1px 2px #111;
+
+}
